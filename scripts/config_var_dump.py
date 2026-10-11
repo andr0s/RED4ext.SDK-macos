@@ -35,6 +35,7 @@ import collections
 import json
 import struct
 import sys
+from pathlib import Path
 
 from validate_addresses import DEFAULT_BINARY, read_macho
 
@@ -62,7 +63,7 @@ def main():
     ap.add_argument("--groups", default="^$")
     ap.add_argument("--audit")
     args = ap.parse_args()
-    L = read_macho(args.binary)
+    L = read_macho(Path(args.binary))
     data, base = L["data"], L["segments"]["__TEXT"][0]
     tvm, tsz = L["sections"][("__TEXT", "__text")]
     cvm, csz = L["sections"][("__TEXT", "__cstring")]

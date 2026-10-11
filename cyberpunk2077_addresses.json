@@ -3,10 +3,10 @@
   "game_version": "2.3.1",
   "uuid": "A6656ADC-FBE2-36A4-9B9D-B4A9DE645089",
   "stats": {
-    "total": 674,
-    "resolved": 670,
+    "total": 676,
+    "resolved": 672,
     "unresolved": 4,
-    "verified": 583
+    "verified": 585
   },
   "Addresses": [
     {
@@ -3286,6 +3286,16 @@
     {
       "hash": "1391946771",
       "offset": "1:0x6B40E60",
+      "verified": true
+    },
+    {
+      "hash": "1921175500",
+      "offset": "1:0x10CD188",
+      "verified": true
+    },
+    {
+      "hash": "161059256",
+      "offset": "3:0x1C6F068",
       "verified": true
     }
   ]
