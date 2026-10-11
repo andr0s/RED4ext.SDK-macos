@@ -226,6 +226,8 @@ def validate(sources: list[Path], layout: dict, names: dict[int, str], data_name
                     issue("ERROR", e, f"data address lies in {where}, expected __DATA_CONST/__DATA")
                 continue
 
+            if where == "__TEXT,__const" and not name:
+                continue  # a read-only table (e.g. the upscaler scale table), verified by its own script
             if not (text_sect[0] <= addr < text_sect[0] + text_sect[1]):
                 issue("ERROR", e, f"function address lies in {where}, not __TEXT,__text")
                 continue
