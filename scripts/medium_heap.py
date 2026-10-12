@@ -131,7 +131,8 @@ def main():
                 db["Addresses"].append(entry)
                 print(f"added {name}: {entry}")
         db["stats"]["total"] = len(db["Addresses"])
-        db["stats"]["resolved"] = sum(1 for e in db["Addresses"] if e.get("offset"))
+        db["stats"]["resolved"] = sum(1 for e in db["Addresses"] if not e["offset"].endswith(":0x0"))
+        db["stats"]["unresolved"] = db["stats"]["total"] - db["stats"]["resolved"]
         db["stats"]["verified"] = sum(1 for e in db["Addresses"] if e.get("verified"))
         json.dump(db, open(a.db, "w"), indent=2)
         open(a.db, "a").write("\n")
