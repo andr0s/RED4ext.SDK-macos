@@ -34,7 +34,13 @@ struct IGameSystem : IUpdatableSystem
     virtual void OnGamePrepared();                                                                            // 158
     virtual void OnGamePaused();                                                                              // 160
     virtual void OnGameResumed();                                                                             // 168
+#ifdef __APPLE__
+    // arm64: the Windows hidden return slot (aLock) is x8 here, so this returns by value. The game calls it on every
+    // system when it checks whether it may save (0x103314E70).
+    virtual SaveLock IsSavingLocked(bool a2); // 170
+#else
     virtual void* IsSavingLocked(SaveLock* aLock, bool a2);                                                   // 170
+#endif
     virtual void OnStreamingWorldLoaded(world::RuntimeScene* aScene, uint64_t a2, const JobGroup& aJobGroup); // 178
     virtual void sub_180();                                                                                   // 180
     virtual void sub_188();                                                                                   // 188
