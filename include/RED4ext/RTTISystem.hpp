@@ -24,8 +24,16 @@ struct IRTTISystem
     virtual CClass* GetClass(CName aName) = 0;                                                   // 10
     virtual CEnum* GetEnum(CName aName) = 0;                                                     // 18
     virtual CBitfield* GetBitfield(CName aName) = 0;                                             // 20
+#ifdef __APPLE__
+    // macOS: the lookup by full name (funcs @A0) is +0x28 (0x102194FB0). +0x30 (0x102195024) searches funcsByHash,
+    // whose key mixes the short name with the parameter types, so script functions such as "TSQ_ALL;" were not found.
+    // Natives are registered with full name == short name ("LogChannel" at 0x102214CD8), so they resolve either way.
+    virtual CGlobalFunction* GetFunction(CName aName) = 0;                                       // 28
+    virtual void sub_30() = 0;                                                                   // 30
+#else
     virtual void sub_28() = 0;                                                                   // 28
     virtual CGlobalFunction* GetFunction(CName aName) = 0;                                       // 30
+#endif
     virtual void sub_38() = 0;                                                                   // 38
     virtual void GetNativeTypes(DynArray<rtti::IType*>& aTypes) = 0;                             // 40
     virtual void GetGlobalFunctions(DynArray<CBaseFunction*>& aFunctions) = 0;                   // 48
